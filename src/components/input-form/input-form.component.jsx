@@ -29,12 +29,15 @@ class InputForm extends React.Component {
         const {storeInput} = this.props;
         storeInput(this.state);
         e.preventDefault();
-        this.setState({firstName: '', lastName: '', qualification: '', dateOfBirth: '', martialStatus: '', hobby: ''});
+        this.setState({firstName: '', lastName: '', qualification: '', dateOfBirth: '', martialStatus: '', selectedRadio: ''});
     }
     handleChange = (e) => {
         const {name, value} = e.target;
         this.setState({[name]: value, id: Math.floor(Math.random()*1000)});
         console.log(this.state);
+    }
+    handleRadioChange = (e) => {
+        this.setState({selectedRadio: e.target.value});
     }
     render() {
         const {inputs} = this.props;
@@ -73,12 +76,30 @@ class InputForm extends React.Component {
                         </select>
                     </div>
                     <div className='dropdown'>
-                        <label className='form-input-label'>Hobbies:</label>
-                        <input type='radio' name='hobby' value='music' onChange={this.handleChange} /> Music
-                        <input type='radio' name='hobby' value='book reading' onChange={this.handleChange} /> Book Reading
+                    <label className='form-input-label'>Hobbies:</label><span className="radio">
+                            <label>
+                                <input
+                                type="radio"
+                                value="Male"
+                                checked={this.state.selectedRadio === "Male"}
+                                onChange={this.handleRadioChange}
+                                />
+                                Male
+                            </label>
+                        </span>
+                        <span className="radio">
+                            <label>
+                                <input
+                                type="radio"
+                                value="Female"
+                                checked={this.state.selectedRadio === "Female"}
+                                onChange={this.handleRadioChange}
+                                />
+                                Female
+                            </label>
+                        </span>
                     </div>
-                    <button className='submit-button' type='submit'>Submit</button>
-                    
+                    <button className='submit-button' type='submit'>Submit</button>   
                 </form>   
                      
             </div>
